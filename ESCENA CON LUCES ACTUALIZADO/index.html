@@ -1,0 +1,466 @@
+<html>
+	<head>
+		<title>Escena con luces y materiales</title>
+		<style>
+body {
+				font-family: Monospace;
+				color: #fff;
+				margin: 0px;
+				overflow: hidden;
+				width: 100%;
+  height: 100%;
+
+				background: #ffd6af; /* Old browsers */
+				background: -moz-linear-gradient(top,  #ffd6af 0%, #5500b6 80%); /* FF3.6-15 */
+				background: -webkit-linear-gradient(top,  #ffd6af 0%,#5500b6 80%); /* Chrome10-25,Safari5.1-6 */
+				background: linear-gradient(to bottom,  #ffd6af 0%,#5500b6 80%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+				filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff9a3c', endColorstr='#8200c9',GradientType=0 ); /* IE6-9 */
+			}
+			#info {
+				color: #000;
+				position: absolute;
+				top: 10px;
+				width: 100%;
+				text-align: center;
+				z-index: 100;
+				display:block;
+			}
+			#info a {
+				color: #046;
+				font-weight: bold;
+			}
+			button{
+			  background:#1AAB8A;
+			  color:#fff;
+			  border:none;
+			  position:absolute;
+			  height:5%;
+			  width:10%;
+			  font-size: 1em;
+			  padding:0 2em;
+			  cursor:pointer;
+			  transition:800ms ease all;
+			  outline:none;
+			}
+			button:hover{
+			  background:#ddd;
+			  color:#1AAB8A;
+			}
+			button:hover:before,button:hover:after{
+			  width:100%;
+			  transition:800ms ease all;
+			}
+			html, body { margin: 0; padding: 0; overflow: visible; }
+		</style>
+
+		
+	</head>
+
+	<body>
+
+		<div id="info">
+			<br> <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - Escena de pelicula La La Land: una historia de amor  <br>
+		</div>
+
+		<script src="js/three.js"></script>
+		<script src="js/OrbitControls.js"></script>
+	
+		<script>
+			var scene, camera, renderer;
+
+
+			init();
+			animate();
+
+			function init(){
+
+			scene = new THREE.Scene();
+            //scene.background = new THREE.Color( 0xf0f0f0 );
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 10000);
+
+			renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            renderer.setSize( window.innerWidth, window.innerHeight );
+            document.body.appendChild( renderer.domElement );
+			controls = new THREE.OrbitControls( camera, renderer.domElement );
+			renderer.setClearColor(0x000000, 0.0);
+
+
+
+			var light = new THREE.AmbientLight(0x9859FF, 0.3); // luz del ambiente
+			scene.add(light);
+
+			
+			// Luces del fondo de atardecer ---------------------------------------------------------
+
+			var light2 = new THREE.RectAreaLight( 0xFF8F00, 10, 400, 30, 500);
+			light2.position.set( 0, 40, -100);
+			light2.lookAt( 0, 120, -1000 );
+			//scene.add( light2 )
+
+
+			var light3 = new THREE.RectAreaLight( 0x6C00FF, 8, 400, 50, 1000);
+			light3.position.set( 0, -70, 0);
+			light3.lookAt( 0, -30, -250 );
+			//scene.add( light3 )
+
+
+			var light4 = new THREE.RectAreaLight( 0xFF8F00, 10, 400, 30, 500);
+			light4.position.set( 0, 40, 100);
+			light4.lookAt( 0, 400, 1000 );
+			//scene.add( light4 )
+
+
+			var light5 = new THREE.RectAreaLight( 0x6C00FF, 8, 400, 40, 1000);
+			light5.position.set( 0, -70, 0);
+			light5.lookAt( 0, -30, 250 );
+			//scene.add( light5 )
+
+
+			// ------------------------------------------------------------------------------------------------------------------
+
+
+		   // Luces de los faroles -----------------------------------------------------------------------------------------------
+			
+			var spherel = new THREE.SphereBufferGeometry( 4, 50, 50 );
+
+			var lights = new THREE.PointLight(0xffffff, 2, 80);
+
+					lights.add( new THREE.Mesh( spherel, new THREE.MeshBasicMaterial( { color: 0xffffff } ) ) );
+					lights.position.set(45,30,-150);
+					scene.add( lights );
+
+			var lights2 = new THREE.PointLight(0xffffff, 2, 80);
+
+					lights2.add( new THREE.Mesh( spherel, new THREE.MeshBasicMaterial( { color: 0xffffff } ) ) );
+					lights2.position.set(45,30,-50);
+					scene.add( lights2 );
+
+			var lights3 = new THREE.PointLight(0xffffff, 2, 80);
+
+					lights3.add( new THREE.Mesh( spherel, new THREE.MeshBasicMaterial( { color: 0xffffff } ) ) );
+					lights3.position.set(45,30,50);
+					scene.add( lights3 );
+
+			var lights4 = new THREE.PointLight(0xffffff, 2, 80);
+
+					lights4.add( new THREE.Mesh( spherel, new THREE.MeshBasicMaterial( { color: 0xffffff } ) ) );
+					lights4.position.set(45,30,150);
+					scene.add( lights4 );
+
+			var lights5 = new THREE.PointLight(0xffffff, 2, 80);
+
+					lights5.add( new THREE.Mesh( spherel, new THREE.MeshBasicMaterial( { color: 0xffffff } ) ) );
+					lights5.position.set(-45,30,-150);
+					scene.add( lights5 );
+
+			var lights6 = new THREE.PointLight(0xffffff, 2, 80);
+
+					lights6.add( new THREE.Mesh( spherel, new THREE.MeshBasicMaterial( { color: 0xffffff } ) ) );
+					lights6.position.set(-45,30,-50);
+					scene.add( lights6 );
+
+			var lights7 = new THREE.PointLight(0xffffff, 2, 80);
+
+					lights7.add( new THREE.Mesh( spherel, new THREE.MeshBasicMaterial( { color: 0xffffff } ) ) );
+					lights7.position.set(-45,30,50);
+					scene.add( lights7 );
+
+			var lights8 = new THREE.PointLight(0xffffff, 2, 80);
+
+					lights8.add( new THREE.Mesh( spherel, new THREE.MeshBasicMaterial( { color: 0xffffff } ) ) );
+					lights8.position.set(-45,30,150);
+					scene.add( lights8 );
+
+
+			var spherel2 = new THREE.SphereBufferGeometry( 3, 50, 50 );
+
+			var lights9 = new THREE.PointLight(0xffffff, 1, 60);
+
+					lights9.add( new THREE.Mesh( spherel2, new THREE.MeshBasicMaterial( { color: 0xffffff } ) ) );
+					lights9.position.set(-45,-15,100);
+					scene.add( lights9 );
+				
+			var lights10 = new THREE.PointLight(0xffffff, 1, 60);
+
+					lights10.add( new THREE.Mesh( spherel2, new THREE.MeshBasicMaterial( { color: 0xffffff } ) ) );
+					lights10.position.set(-45,-15,-100);
+					scene.add( lights10 );
+				
+			var lights11 = new THREE.PointLight(0xffffff, 1, 60);
+
+					lights11.add( new THREE.Mesh( spherel2, new THREE.MeshBasicMaterial( { color: 0xffffff } ) ) );
+					lights11.position.set(45,-15,0);
+					scene.add( lights11 );
+
+			var spherel3 = new THREE.SphereBufferGeometry( 20, 50, 50 );
+
+			var lightstodo = new THREE.PointLight(0xffffff, 0.5, 1000);
+
+			lightstodo.add( new THREE.Mesh( spherel3, new THREE.MeshBasicMaterial( { color: 0xffffff } ) ) );
+			lightstodo.position.set(-100,500,-500);
+			scene.add( lightstodo );
+
+
+
+
+			// ---------------------------------------------------------------------------------------------------------------------------
+			
+
+			
+			// Olas del mar --------------------------------------------------------------------------------------------------------------
+            
+			var texturewater2 = new THREE.TextureLoader().load( 'textura agua 2/Water_002_COLOR.jpg' );
+			var waterNormal2 = new THREE.TextureLoader().load( 'textura agua 2/Water_002_NORM.jpg' );
+			var waterocc2 = new THREE.TextureLoader().load( 'textura agua 2/Water_002_OCC.jpg' );
+			var waterdisplacement2 = new THREE.TextureLoader().load( 'textura agua 2/Water_002_DISP.png' );
+			var waterroughness2 = new THREE.TextureLoader().load( 'textura agua 2/Water_002_ROUGH.jpg' );
+
+
+			var planegeometry = new THREE.PlaneGeometry(800,400);
+			var planematerial = new THREE.MeshStandardMaterial( {
+				color: 0xffffff, 
+				side: THREE.DoubleSide, 
+				map: texturewater2,
+				normalMap: waterNormal2,
+				aoMap: waterocc2,
+				roughness: waterroughness2,
+				displacementMap: waterdisplacement2
+				} );
+			
+			var mesh = new THREE.Mesh( planegeometry, planematerial ) ;
+			mesh.rotateX(90*Math.PI/180);
+			mesh.position.set(0,-60,-350);
+			scene.add( mesh );
+
+			var mesh2 = new THREE.Mesh() ;
+			mesh2 = mesh.clone();
+			mesh2.position.set(0,-60,50);
+			scene.add( mesh2 );
+
+			// ----------------------------------------------------------------------------------------------------------------
+
+
+			// Personas -------------------------------------------------------------------------------------------------------
+
+			var spheregeometry = new THREE.SphereGeometry( 4, 50, 50 );
+			var material = new THREE.MeshLambertMaterial( );
+			var sphere = new THREE.Mesh( spheregeometry, material );
+			sphere.position.set(0,4,50);
+			scene.add( sphere );
+
+			var material2 = new THREE.MeshStandardMaterial( {color: 0xffffff} );
+			var sphere2 = new THREE.Mesh( spheregeometry, material2 );
+			sphere2.position.set(-20,4,-20);
+			scene.add( sphere2 );
+
+
+			var cilindrogeo = new THREE.CylinderGeometry( 3, 6, 30, 50);
+			var cilindropersonas = new THREE.MeshStandardMaterial( {
+				color: 0xffffff, 	
+				side: THREE.DoubleSide,			
+				} );
+			var cilindro = new THREE.Mesh( cilindrogeo, cilindropersonas );
+			cilindro.position.set(0,-15,50);
+			scene.add( cilindro);
+
+			var cilindro2 = new THREE.Mesh( cilindrogeo, cilindropersonas );
+			cilindro2.position.set(-20,-15,-20);
+			scene.add( cilindro2);
+
+			// ------------------------------------------------------------------------------------------------------------------
+
+			// Faroles pequeños -------------------------------------------------------------------------------------------------
+
+			var geocilindro = new THREE.CylinderGeometry( 2, 4, 18, 50);
+
+			var texturemetal2 = new THREE.TextureLoader().load( 'textura metal 2/pitted-metal_albedo.png' );
+			var metalNormal2 = new THREE.TextureLoader().load( 'textura metal 2/pitted-metal_normal-ogl.png' );
+			var metalroughness2 = new THREE.TextureLoader().load( 'textura metal 2/pitted-metal_roughness.png' );
+			var metalao2 = new THREE.TextureLoader().load( 'textura metal 2/pitted-metal_ao.png' );
+			var metaldisplacement2 = new THREE.TextureLoader().load( 'textura metal 2/pitted-metal_height.png' );
+
+			var cilindromaterial = new THREE.MeshStandardMaterial( {
+				color: 0xffffff, 	
+				side: THREE.DoubleSide,			
+				map:texturemetal2,
+				normalMap: metalNormal2,
+				roughness: metalroughness2,
+				aoMap: metalao2,
+				displacementMap: metaldisplacement2
+				} );
+
+			var farol1 = new THREE.Mesh( geocilindro, cilindromaterial );
+			farol1.position.set(-45,-21,-100)
+			scene.add( farol1 );
+			
+			var farol2 = new THREE.Mesh( geocilindro, cilindromaterial );
+			farol2.position.set(45,-21,0)
+			scene.add( farol2 );
+
+			var farol3 = new THREE.Mesh( geocilindro, cilindromaterial );
+			farol3.position.set(-45,-21,100)
+			scene.add( farol3 );
+
+			// -------------------------------------------------------------------------------------------------------------------
+
+
+			var textureconcrete = new THREE.TextureLoader().load( 'textura concreto/patchy_cement1_Base_Color.png' );
+			var concreteNormal = new THREE.TextureLoader().load( 'textura concreto/patchy_cement1_Normal.png' );
+			var concreteocc = new THREE.TextureLoader().load( 'textura concreto/patchy_cement1_Ambient_Occlusion.png' );
+
+
+			var boxgeometry = new THREE.BoxGeometry( 110, 30, 370 ); // Muelle
+
+			var boxmaterial = new THREE.MeshStandardMaterial( {
+				color: 0x5170A2,  
+				side: THREE.DoubleSide, 
+				map: textureconcrete,
+				normalMap: concreteNormal,
+				aoMap: concreteocc 
+				} );
+				
+			var cube = new THREE.Mesh( boxgeometry, boxmaterial );
+			cube.position.set(0,-45,20);
+			scene.add( cube );
+
+
+			// Barandas del muelle -------------------------------------------------------------------------------------------------
+
+			var varillageometry = new THREE.BoxGeometry( 1.5, 20, 1.5 );
+			var varillageometry2 = new THREE.CylinderGeometry( 0.5, 0.5, 360, 50 );
+			var varillageometry3 = new THREE.CylinderGeometry( 0.5, 0.5, 100, 50 );
+			var varillageometry4 = new THREE.BoxGeometry( 1.5, 0.8, 362);
+			var varillageometry5 = new THREE.BoxGeometry( 100, 0.8, 1.5);
+
+
+			var texturemetal3 = new THREE.TextureLoader().load( 'textura metal 3/metal-splotchy-albedo.png' );
+			var metalNormal3 = new THREE.TextureLoader().load( 'textura metal 3/metal-splotchy-normal-ogl.png' );
+			var metalroughness3 = new THREE.TextureLoader().load( 'textura metal 3/metal-splotchy-rough.png' );
+			var metalmetalness3 = new THREE.TextureLoader().load( 'textura metal 3/metal-splotchy-metal.png' );
+
+			var varillamaterial = new THREE.MeshLambertMaterial( {
+				color: 0x82878A,  
+				side: THREE.DoubleSide,
+				map: texturemetal3,
+				normalMap: metalNormal3,
+				roughness: metalroughness3,
+				metalness: metalmetalness3
+				} );
+
+			var varillamaterial2 = new THREE.MeshLambertMaterial( {
+				color: 0xDFDFDF,  
+				side: THREE.DoubleSide,
+				map:texturemetal2,
+				normalMap: metalNormal2,
+				roughness: metalroughness2,
+				aoMap: metalao2,
+				displacementMap: metaldisplacement2
+				} );
+			for (var b = 0; b<= 1; b++) {
+				for (var a = 0; a <=14; a++) {
+					var varilla = new THREE.Mesh( varillageometry, varillamaterial );
+					varilla.position.set(50-100*b,-20,-160+25*a);
+					scene.add(varilla);
+				}
+			}
+
+
+			for (var b = 0; b<= 1; b++) {
+				for (var a = 0; a <=2; a++) {
+					var varilla2 = new THREE.Mesh( varillageometry2, varillamaterial2 );
+					varilla2.rotateX(90*Math.PI/180);	
+					varilla2.position.set(50-100*b,-25+5*a,20);
+					scene.add(varilla2);
+				}
+			}
+
+			for (var a = 0; a <=1; a++) {
+					var varilla3 = new THREE.Mesh( varillageometry, varillamaterial );
+					varilla3.position.set(20-40*a,-20,-160);
+					scene.add(varilla3);
+			}
+
+			for (var a = 0; a <=2; a++) {
+				var varilla4 = new THREE.Mesh( varillageometry3, varillamaterial2 );
+				varilla4.rotateX(90*Math.PI/180);	
+				varilla4.rotateZ(90*Math.PI/180);
+				varilla4.position.set(0,-25+5*a,-160);
+				scene.add(varilla4);
+			}
+
+			for (var a = 0; a <=1; a++) {
+				var varilla5 = new THREE.Mesh( varillageometry4, varillamaterial );
+				varilla5.position.set(50-100*a,-10,19);
+				scene.add(varilla5);
+			}
+
+			var varilla6 = new THREE.Mesh( varillageometry5, varillamaterial );
+			varilla6.position.set(0,-10,-160);
+			scene.add(varilla6);
+
+			// ---------------------------------------------------------------------------------------------------------------
+
+
+
+			// Faroles grandes -----------------------------------------------------------------------------------------------
+
+			var texturemetal = new THREE.TextureLoader().load( 'textura metal/scuffed-metal1_albedo.png' );
+			var metalNormal = new THREE.TextureLoader().load( 'textura metal/scuffed-metal1_normal-ogl.png' );
+			var metalroughness = new THREE.TextureLoader().load( 'textura metal/scuffed-metal1_roughness.png' );
+			var metalao = new THREE.TextureLoader().load( 'textura metal/scuffed-metal1_ao.png' );
+			var metaldisplacement = new THREE.TextureLoader().load( 'textura metal/scuffed-metal1_height.png' );
+
+			var cylindergeometry = new THREE.CylinderGeometry( 1, 2, 60, 50 );
+			var cylindermaterial = new THREE.MeshPhongMaterial( {
+				color: 0xffffff,  
+				side: THREE.DoubleSide,
+				map: texturemetal,
+				normal: metalNormal,
+				roughness: metalroughness,
+				aoMap: metalao
+
+				} );
+
+			for (var b = 0; b<= 1; b++) {
+				for (var a = 0; a <=3; a++) {
+					var cylinder = new THREE.Mesh( cylindergeometry, cylindermaterial );
+					cylinder.position.set(45-90*b,0,-150+100*a);
+					scene.add( cylinder );
+				}
+			}
+
+
+			// ----------------------------------------------------------------------------------------------------------------
+
+
+			camera.position.z = 170;
+			camera.position.y = 30;
+			controls.target.set(0,-15,0);
+			
+			
+			window.addEventListener( 'resize', onWindowResize, false );
+
+			}
+
+			function onWindowResize() {
+
+				camera.aspect = window.innerWidth / window.innerHeight;
+				camera.updateProjectionMatrix();
+				renderer.setSize( window.innerWidth, window.innerHeight );
+
+			}
+
+			function animate() {
+					render();
+					controls.update(); // required if controls.enableDamping = true, or if controls.autoRotate = true
+					requestAnimationFrame( animate );
+				}
+
+
+			function render(){
+				renderer.render( scene, camera );
+			}
+		
+		</script>
+	</body>
+</html>
