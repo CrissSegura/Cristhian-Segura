@@ -1,0 +1,437 @@
+<html>
+	<head>
+		<title>Escena con luces y materiales</title>
+		<style>
+body {
+				font-family: Monospace;
+				background-color: #000;
+				color: #fff;
+				margin: 0px;
+				overflow: hidden;
+			}
+			#info {
+				color: #000;
+				position: absolute;
+				top: 10px;
+				width: 100%;
+				text-align: center;
+				z-index: 100;
+				display:block;
+			}
+			#info a {
+				color: #046;
+				font-weight: bold;
+			}
+			button{
+			  background:#1AAB8A;
+			  color:#fff;
+			  border:none;
+			  position:absolute;
+			  height:5%;
+			  width:10%;
+			  font-size: 1em;
+			  padding:0 2em;
+			  cursor:pointer;
+			  transition:800ms ease all;
+			  outline:none;
+			}
+			button:hover{
+			  background:#ddd;
+			  color:#1AAB8A;
+			}
+			button:hover:before,button:hover:after{
+			  width:100%;
+			  transition:800ms ease all;
+			}
+			html, body { margin: 0; padding: 0; overflow: visible; }
+		</style>
+
+		
+	</head>
+
+	<body>
+
+		<div id="info">
+			<br> <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - Escena de pelicula La La Land: una historia de amor  <br>
+		</div>
+
+		<script src="js/three.js"></script>
+		<script src="js/OrbitControls.js"></script>
+	
+		<script>
+			var scene, camera, renderer;
+
+
+			init();
+			animate();
+
+			function init(){
+
+			scene = new THREE.Scene();
+            scene.background = new THREE.Color( 0xf0f0f0 );
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 10000);
+
+			renderer = new THREE.WebGLRenderer();
+            renderer.setSize( window.innerWidth, window.innerHeight );
+            document.body.appendChild( renderer.domElement );
+			controls = new THREE.OrbitControls( camera, renderer.domElement );
+
+
+
+			var light = new THREE.AmbientLight(0x9859FF, 0.3); // luz del ambiente
+			scene.add(light);
+
+			
+			// Luces del fondo de atardecer ---------------------------------------------------------
+
+			var light2 = new THREE.RectAreaLight( 0xFF8F00, 10, 400, 30, 500);
+			light2.position.set( 0, 40, -100);
+			light2.lookAt( 0, 120, -1000 );
+			scene.add( light2 )
+
+
+			var light3 = new THREE.RectAreaLight( 0x6C00FF, 8, 400, 50, 1000);
+			light3.position.set( 0, -70, 0);
+			light3.lookAt( 0, -30, -250 );
+			scene.add( light3 )
+
+
+			var light4 = new THREE.RectAreaLight( 0xFF8F00, 10, 400, 30, 500);
+			light4.position.set( 0, 40, 100);
+			light4.lookAt( 0, 400, 1000 );
+			scene.add( light4 )
+
+
+			var light5 = new THREE.RectAreaLight( 0x6C00FF, 8, 400, 40, 1000);
+			light5.position.set( 0, -70, 0);
+			light5.lookAt( 0, -30, 250 );
+			scene.add( light5 )
+
+
+			// ------------------------------------------------------------------------------------------------------------------
+
+
+		   // Luces de los faroles -----------------------------------------------------------------------------------------------
+			
+			var spherel = new THREE.SphereBufferGeometry( 4, 16, 8 );
+
+			var lights = new THREE.PointLight(0xffffff, 0.2, 60);
+
+					lights.add( new THREE.Mesh( spherel, new THREE.MeshBasicMaterial( { color: 0xffffff } ) ) );
+					lights.position.set(45,30,-150);
+					scene.add( lights );
+
+			var lights2 = new THREE.PointLight(0xffffff, 2, 80);
+
+					lights2.add( new THREE.Mesh( spherel, new THREE.MeshBasicMaterial( { color: 0xffffff } ) ) );
+					lights2.position.set(45,30,-50);
+					scene.add( lights2 );
+
+			var lights3 = new THREE.PointLight(0xffffff, 2, 80);
+
+					lights3.add( new THREE.Mesh( spherel, new THREE.MeshBasicMaterial( { color: 0xffffff } ) ) );
+					lights3.position.set(45,30,50);
+					scene.add( lights3 );
+
+			var lights4 = new THREE.PointLight(0xffffff, 0.2, 60);
+
+					lights4.add( new THREE.Mesh( spherel, new THREE.MeshBasicMaterial( { color: 0xffffff } ) ) );
+					lights4.position.set(45,30,150);
+					scene.add( lights4 );
+
+			var lights5 = new THREE.PointLight(0xffffff, 0.2, 60);
+
+					lights5.add( new THREE.Mesh( spherel, new THREE.MeshBasicMaterial( { color: 0xffffff } ) ) );
+					lights5.position.set(-45,30,-150);
+					scene.add( lights5 );
+
+			var lights6 = new THREE.PointLight(0xffffff, 2, 80);
+
+					lights6.add( new THREE.Mesh( spherel, new THREE.MeshBasicMaterial( { color: 0xffffff } ) ) );
+					lights6.position.set(-45,30,-50);
+					scene.add( lights6 );
+
+			var lights7 = new THREE.PointLight(0xffffff, 2, 80);
+
+					lights7.add( new THREE.Mesh( spherel, new THREE.MeshBasicMaterial( { color: 0xffffff } ) ) );
+					lights7.position.set(-45,30,50);
+					scene.add( lights7 );
+
+			var lights8 = new THREE.PointLight(0xffffff, 0.2, 60);
+
+					lights8.add( new THREE.Mesh( spherel, new THREE.MeshBasicMaterial( { color: 0xffffff } ) ) );
+					lights8.position.set(-45,30,150);
+					scene.add( lights8 );
+
+
+			var spherel2 = new THREE.SphereBufferGeometry( 3, 16, 8 );
+
+			var lights9 = new THREE.PointLight(0xffffff, 1, 60);
+
+					lights9.add( new THREE.Mesh( spherel2, new THREE.MeshBasicMaterial( { color: 0xffffff } ) ) );
+					lights9.position.set(-45,-15,100);
+					scene.add( lights9 );
+				
+			var lights10 = new THREE.PointLight(0xffffff, 1, 60);
+
+					lights10.add( new THREE.Mesh( spherel2, new THREE.MeshBasicMaterial( { color: 0xffffff } ) ) );
+					lights10.position.set(-45,-15,-100);
+					scene.add( lights10 );
+				
+			var lights11 = new THREE.PointLight(0xffffff, 1, 60);
+
+					lights11.add( new THREE.Mesh( spherel2, new THREE.MeshBasicMaterial( { color: 0xffffff } ) ) );
+					lights11.position.set(45,-15,0);
+					scene.add( lights11 );
+
+			// ---------------------------------------------------------------------------------------------------------------------------
+			
+
+			
+			// Olas del mar --------------------------------------------------------------------------------------------------------------
+
+				var curve2D = [];
+                curve2D[0] = new THREE.Vector2( 10, 3 );
+                curve2D[1] = new THREE.Vector2( 20, 0 );
+                curve2D[2] = new THREE.Vector2( 30, 5 );
+                curve2D[3] = new THREE.Vector2( 40, 0 );
+                curve2D[4] = new THREE.Vector2( 50, 4 );
+                curve2D[5] = new THREE.Vector2( 60, 0 ); 
+				curve2D[6] = new THREE.Vector2( 70, 5 ); 
+				curve2D[7] = new THREE.Vector2( 80, 0 ); 
+				curve2D[8] = new THREE.Vector2( 90, 4 ); 
+				curve2D[9] = new THREE.Vector2( 100, 0 ); 
+				curve2D[10] = new THREE.Vector2( 110, 5 ); 
+				curve2D[11] = new THREE.Vector2( 120, 0 ); 
+				curve2D[12] = new THREE.Vector2( 130, 2.5 ); 
+				curve2D[13] = new THREE.Vector2( 140, 0 ); 
+				curve2D[14] = new THREE.Vector2( 150, 4 ); 
+				curve2D[15] = new THREE.Vector2( 160, 0 ); 
+				curve2D[16] = new THREE.Vector2( 170, 2.5 ); 
+				curve2D[17] = new THREE.Vector2( 180, 0 ); 
+				curve2D[18] = new THREE.Vector2( 190, 5 ); 
+				curve2D[19] = new THREE.Vector2( 200, 0 ); 
+
+
+				
+			var shape = new THREE.Shape();
+			shape.moveTo(0,0);
+			shape.splineThru(curve2D);
+            
+            var material = new THREE.LineBasicMaterial( { color : 0xff0000 } );
+            var resolution = 50;
+            var points = shape.getPoints( resolution );
+            var geometry = new THREE.BufferGeometry().setFromPoints( points );
+            var curveObject = new THREE.Line( geometry, material );
+            
+			//EXTRUDE
+			var extrudeSettings = {
+				steps: 2,
+				amount: 400,
+				bevelEnabled: false,
+			};
+
+			var geometryExt = new THREE.ExtrudeGeometry( shape, extrudeSettings );
+			var materialExt= new THREE.MeshStandardMaterial( { 
+				color: 0x006ED6, 
+				metalness: 0.5, 
+				roughness: 0.1,
+				opacity: 0.5,
+				transparent: true			
+			} );
+			
+			var mesh = new THREE.Mesh( geometryExt, materialExt ) ;
+			mesh.rotateY(90*Math.PI/180);
+			mesh.position.set(-200,-60,0);
+			scene.add( mesh );
+
+			var mesh2 = new THREE.Mesh() ;
+			mesh2 = mesh.clone();
+			mesh2.position.set(-200,-60,200);
+			scene.add( mesh2 );
+
+			// ----------------------------------------------------------------------------------------------------------------
+
+
+
+			// Planos donde se proyectan las luces del atardecer --------------------------------------------------------------
+
+			var planegeometry = new THREE.PlaneGeometry(400,120);
+			var planegeometry2 = new THREE.PlaneGeometry(400, 120);
+			var planegeometry3 = new THREE.PlaneGeometry(400, 400);
+			var planematerial = new THREE.MeshStandardMaterial( {color: 0xffffff, side: THREE.DoubleSide} );
+			var plane = new THREE.Mesh( planegeometry, planematerial );
+			var plane2 = new THREE.Mesh( planegeometry, planematerial );
+
+
+			plane.position.set(0,0,-200);
+			plane2.position.set(0,0,200);
+			
+			scene.add( plane );
+			scene.add( plane2 );
+
+			// ----------------------------------------------------------------------------------------------------------------
+
+
+			// Personas -------------------------------------------------------------------------------------------------------
+
+			var spheregeometry = new THREE.SphereGeometry( 4, 50, 50 );
+			var material = new THREE.MeshLambertMaterial( );
+			var sphere = new THREE.Mesh( spheregeometry, material );
+			sphere.position.set(0,4,50);
+			scene.add( sphere );
+
+			var material2 = new THREE.MeshStandardMaterial( {color: 0xffffff} );
+			var sphere2 = new THREE.Mesh( spheregeometry, material2 );
+			sphere2.position.set(-20,4,-20);
+			scene.add( sphere2 );
+
+
+			var cilindrogeo = new THREE.CylinderGeometry( 3, 6, 30, 50);
+			var cilindromaterial = new THREE.MeshStandardMaterial( {color: 0xffffff} );
+			var cilindro = new THREE.Mesh( cilindrogeo, cilindromaterial );
+			cilindro.position.set(0,-15,50);
+			scene.add( cilindro);
+
+			var cilindro2 = new THREE.Mesh( cilindrogeo, cilindromaterial );
+			cilindro2.position.set(-20,-15,-20);
+			scene.add( cilindro2);
+
+			// ------------------------------------------------------------------------------------------------------------------
+
+			// Faroles pequeños -------------------------------------------------------------------------------------------------
+
+			var geocilindro = new THREE.CylinderGeometry( 2, 4, 18, 50);
+			var farol1 = new THREE.Mesh( geocilindro, cilindromaterial );
+			farol1.position.set(-45,-21,-100)
+			scene.add( farol1 );
+			
+			var farol2 = new THREE.Mesh( geocilindro, cilindromaterial );
+			farol2.position.set(45,-21,0)
+			scene.add( farol2 );
+
+			var farol3 = new THREE.Mesh( geocilindro, cilindromaterial );
+			farol3.position.set(-45,-21,100)
+			scene.add( farol3 );
+
+			// -------------------------------------------------------------------------------------------------------------------
+
+
+
+
+			var boxgeometry = new THREE.BoxGeometry( 110, 30, 370 ); // Muelle
+			var boxgeometry2 = new THREE.BoxGeometry( 500, 150, 500 ); // Caja que contiene toda la escena
+
+
+			var boxmaterial = new THREE.MeshStandardMaterial( {color: 0x5170A2,  side: THREE.DoubleSide} );
+			var cube = new THREE.Mesh( boxgeometry, boxmaterial );
+			cube.position.set(0,-45,20);
+			scene.add( cube );
+
+			var cube2 = new THREE.Mesh( boxgeometry2, boxmaterial );
+			scene.add( cube2 );
+
+
+			// Barandas del muelle -------------------------------------------------------------------------------------------------
+
+			var varillageometry = new THREE.BoxGeometry( 1.5, 20, 1.5 );
+			var varillageometry2 = new THREE.CylinderGeometry( 0.5, 0.5, 360, 50 );
+			var varillageometry3 = new THREE.CylinderGeometry( 0.5, 0.5, 100, 50 );
+			var varillageometry4 = new THREE.BoxGeometry( 1.5, 0.8, 362);
+			var varillageometry5 = new THREE.BoxGeometry( 100, 0.8, 1.5);
+
+			var varillamaterial = new THREE.MeshLambertMaterial( {color: 0x82878A,  side: THREE.DoubleSide} );
+			var varillamaterial2 = new THREE.MeshLambertMaterial( {color: 0xDFDFDF,  side: THREE.DoubleSide} );
+			for (var b = 0; b<= 1; b++) {
+				for (var a = 0; a <=14; a++) {
+					var varilla = new THREE.Mesh( varillageometry, varillamaterial );
+					varilla.position.set(50-100*b,-20,-160+25*a);
+					scene.add(varilla);
+				}
+			}
+
+
+			for (var b = 0; b<= 1; b++) {
+				for (var a = 0; a <=2; a++) {
+					var varilla2 = new THREE.Mesh( varillageometry2, varillamaterial2 );
+					varilla2.rotateX(90*Math.PI/180);	
+					varilla2.position.set(50-100*b,-25+5*a,20);
+					scene.add(varilla2);
+				}
+			}
+
+			for (var a = 0; a <=1; a++) {
+					var varilla3 = new THREE.Mesh( varillageometry, varillamaterial );
+					varilla3.position.set(20-40*a,-20,-160);
+					scene.add(varilla3);
+			}
+
+			for (var a = 0; a <=2; a++) {
+				var varilla4 = new THREE.Mesh( varillageometry3, varillamaterial2 );
+				varilla4.rotateX(90*Math.PI/180);	
+				varilla4.rotateZ(90*Math.PI/180);
+				varilla4.position.set(0,-25+5*a,-160);
+				scene.add(varilla4);
+			}
+
+			for (var a = 0; a <=1; a++) {
+				var varilla5 = new THREE.Mesh( varillageometry4, varillamaterial );
+				varilla5.position.set(50-100*a,-10,19);
+				scene.add(varilla5);
+			}
+
+			var varilla6 = new THREE.Mesh( varillageometry5, varillamaterial );
+			varilla6.position.set(0,-10,-160);
+			scene.add(varilla6);
+
+			// ---------------------------------------------------------------------------------------------------------------
+
+
+
+			// Faroles grandes -----------------------------------------------------------------------------------------------
+
+			var cylindergeometry = new THREE.CylinderGeometry( 1, 2, 60, 50 );
+			var cylindermaterial = new THREE.MeshPhongMaterial( { side: THREE.DoubleSide} );
+			for (var b = 0; b<= 1; b++) {
+				for (var a = 0; a <=3; a++) {
+					var cylinder = new THREE.Mesh( cylindergeometry, cylindermaterial );
+					cylinder.position.set(45-90*b,0,-150+100*a);
+					scene.add( cylinder );
+				}
+			}
+
+
+			// ----------------------------------------------------------------------------------------------------------------
+
+
+			camera.position.z = 100;
+			camera.position.y = 10;
+			controls.target.set(0,-15,0);
+			
+			
+			window.addEventListener( 'resize', onWindowResize, false );
+
+			}
+
+			function onWindowResize() {
+
+				camera.aspect = window.innerWidth / window.innerHeight;
+				camera.updateProjectionMatrix();
+				renderer.setSize( window.innerWidth, window.innerHeight );
+
+			}
+
+			function animate() {
+					render();
+					controls.update(); // required if controls.enableDamping = true, or if controls.autoRotate = true
+					requestAnimationFrame( animate );
+				}
+
+
+			function render(){
+				renderer.render( scene, camera );
+			}
+		
+		</script>
+	</body>
+</html>
